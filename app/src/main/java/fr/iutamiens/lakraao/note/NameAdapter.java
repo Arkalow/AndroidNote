@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe qui représente les items
  * Created by omer on 22/02/18.
  */
-
 public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
     private List<String> items = new ArrayList<>();
     private final LayoutInflater layoutInflater;

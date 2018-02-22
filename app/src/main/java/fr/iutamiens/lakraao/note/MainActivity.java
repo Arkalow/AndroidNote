@@ -16,21 +16,29 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+
+    private RecyclerView recyclerView; //Liste d'item
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new NameAdapter(this));
-        addName("Item 1");
-        addName("Item 2");
-        addName("Item 3");
-        addName("Item 4");
+
+
+        for (int i = 0; i < 100; i++){
+            addItem("Item N°"+i);
+        }
     }
-    private void addName(String text) {
+
+    /***
+     * Ajout un item au system
+     * @param text text de l'item à ajouter
+     */
+    private void addItem(String text) {
         ((NameAdapter) recyclerView.getAdapter()).add(text);
     }
 }

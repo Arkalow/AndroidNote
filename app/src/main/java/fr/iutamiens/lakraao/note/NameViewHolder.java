@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
+ * Class qui représente un item
  * Created by omer on 22/02/18.
  */
-
 public class NameViewHolder extends RecyclerView.ViewHolder {
 
     private TextView textView;
@@ -21,10 +21,15 @@ public class NameViewHolder extends RecyclerView.ViewHolder {
         textView = itemView.findViewById(R.id.item);
     }
 
+    /***
+     * Modifie la vue
+     * @param item
+     */
     public void bind(String item) {
         textView.setText(item);
         Log.d("NameViewHolder", textView.getText().toString());
     }
+
     public void recycle() {
         textView.setText("");
     }
