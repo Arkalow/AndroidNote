@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="fr.iutamiens.lakraao.note.MainActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
+
 </android.support.constraint.ConstraintLayout>
