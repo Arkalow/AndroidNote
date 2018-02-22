@@ -23,10 +23,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-                LayoutInflater layoutInflater = getLayoutInflater();
+                //LayoutInflater layoutInflater = getLayoutInflater();
                 //View dialogView = layoutInflater.inflate(R.layout.dialog_test, null);
                 builder.setTitle("test");
 
+                /**
+                 * Bouton Valider
+                 */
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
 
                     @Override
@@ -36,8 +39,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Dialog", "Valider");
                     }
                 });
-
-                builder.setPositiveButton("Annuler", new DialogInterface.OnClickListener(){
+                
+                /**
+                 * Bouton Annuler
+                 */
+                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
