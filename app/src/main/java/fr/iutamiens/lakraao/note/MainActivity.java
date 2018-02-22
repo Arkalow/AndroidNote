@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,42 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = this.findViewById(R.id.recyclerView);
-        recyclerView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                //LayoutInflater layoutInflater = getLayoutInflater();
-                //View dialogView = layoutInflater.inflate(R.layout.dialog_test, null);
-                builder.setTitle("test");
-
-                /**
-                 * Bouton Valider
-                 */
-                builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
-
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        AlertDialog alertDialog = (AlertDialog) dialogInterface;
-                        Log.d("Dialog", "Valider");
-                    }
-                });
-
-                /**
-                 * Bouton Annuler
-                 */
-                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
-
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        Log.d("Dialog", "Annuler");
-
-                    }
-                });
-                builder.create().show();
-            }
-        });
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new NameAdapter());
     }
 }
