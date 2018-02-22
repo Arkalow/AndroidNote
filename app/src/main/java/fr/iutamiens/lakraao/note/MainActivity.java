@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +13,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = this.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener(){
+        recyclerView = this.findViewById(R.id.recyclerView);
+        recyclerView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
                 //LayoutInflater layoutInflater = getLayoutInflater();
@@ -35,11 +37,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         AlertDialog alertDialog = (AlertDialog) dialogInterface;
-                        TextView textView = MainActivity.this.findViewById(R.id.textView);
                         Log.d("Dialog", "Valider");
                     }
                 });
-                
+
                 /**
                  * Bouton Annuler
                  */
