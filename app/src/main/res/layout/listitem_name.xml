@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="fr.iutamiens.lakraao.note.MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:lines="1"
-        android:ellipsize="end"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="Item"
-        tools:textSize="50sp" />
-
-</android.support.constraint.ConstraintLayout>
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        />
+</RelativeLayout>

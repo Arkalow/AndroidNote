@@ -1,6 +1,7 @@
 package fr.iutamiens.lakraao.note;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,10 +19,13 @@ public class NameViewHolder extends RecyclerView.ViewHolder {
     public NameViewHolder(View itemView) {
         super(itemView);
         textView = itemView.findViewById(R.id.item);
-        textView.setText("Test");
     }
 
-    public void bind(TextView textView) {
-        this.textView = textView;
+    public void bind(String item) {
+        textView.setText(item);
+        Log.d("NameViewHolder", textView.getText().toString());
+    }
+    public void recycle() {
+        textView.setText("");
     }
 }
