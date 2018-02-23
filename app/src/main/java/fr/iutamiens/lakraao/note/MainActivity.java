@@ -2,6 +2,8 @@ package fr.iutamiens.lakraao.note;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     private Button button;
     private RecyclerView recyclerView; //Liste d'item
+    private DatabaseOpenHelper openHelper; //base de donnée
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,21 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new NameAdapter(this));
+
+
+
+        openHelper = new DatabaseOpenHelper(this);
+        SQLiteDatabase database = openHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM todo", null);
+
+        int idIndex = cursor.getColumnIndex("id");
+        int nameIndex = cursor.getColumnIndex("name");
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(idIndex);
+            int name = cursor.getInt(nameIndex);
+            Log.d("Query", "id = " + id + "| name = " + name);
+        }
+        cursor.close();
 
     }
 
