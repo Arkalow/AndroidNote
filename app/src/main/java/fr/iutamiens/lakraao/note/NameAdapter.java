@@ -24,7 +24,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
     public void add(String item) {
         Log.d("NameAdapter", "Add element");
         items.add(item);
-        notifyItemInserted(items.size() - 1);
+        notifyItemInserted(getItemCount());
     }
 
     /***

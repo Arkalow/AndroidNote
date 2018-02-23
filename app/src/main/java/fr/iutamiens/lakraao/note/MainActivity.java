@@ -16,7 +16,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-
+    private Button button;
     private RecyclerView recyclerView; //Liste d'item
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,46 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(new NameAdapter(this));
 
 
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 3; i++){
             addItem("Item N°"+i);
         }
+        //addItem("First Item");
+        button = this.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                //LayoutInflater layoutInflater = getLayoutInflater();
+                //View dialogView = layoutInflater.inflate(R.layout.dialog_test, null);
+                builder.setTitle("test");
+
+                /**
+                 * Bouton Valider
+                 */
+                builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        AlertDialog alertDialog = (AlertDialog) dialogInterface;
+                        addItem("test");
+                        Log.d("Dialog", "Valider");
+                    }
+                });
+
+                /**
+                 * Bouton Annuler
+                 */
+                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Log.d("Dialog", "Annuler");
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
 
     /***
