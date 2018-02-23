@@ -23,10 +23,10 @@ public class NameViewHolder extends RecyclerView.ViewHolder {
 
     /***
      * Modifie la vue
-     * @param item
+     * @param note
      */
-    public void bind(String item) {
-        textView.setText(item);
+    public void bind(Note note) {
+        textView.setText(note.getTitle());
         Log.d("NameViewHolder", textView.getText().toString());
     }
 

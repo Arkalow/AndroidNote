@@ -14,16 +14,16 @@ import java.util.List;
  * Created by omer on 22/02/18.
  */
 public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
-    private List<String> items = new ArrayList<>();
+    private List<Note> items = new ArrayList<>();
     private final LayoutInflater layoutInflater;
 
     /***
      * Ajoute un textView
-     * @param item
+     * @param note
      */
-    public void add(String item) {
+    public void add(Note note) {
         Log.d("NameAdapter", "Add element");
-        items.add(item);
+        items.add(note);
         notifyItemInserted(getItemCount());
     }
 

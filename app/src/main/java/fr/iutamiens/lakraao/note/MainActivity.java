@@ -46,13 +46,16 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
 
     }
+    public void addItemToDatabase(String item){
+
+    }
 
     /***
      * Ajout un item au system
-     * @param text text de l'item à ajouter
+     * @param text de l'item à ajouter
      */
-    private void addItem(String text) {
-        ((NameAdapter) recyclerView.getAdapter()).add(text);
+    private void addItem(Note note) {
+        ((NameAdapter) recyclerView.getAdapter()).add(note);
     }
 
     /***
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     /***
-     * Selection du menu
+     * Selection d'un bouton du menu
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.share){
@@ -73,19 +76,22 @@ public class MainActivity extends AppCompatActivity {
             LayoutInflater layoutInflater = getLayoutInflater();
             View dialogView = layoutInflater.inflate(R.layout.dialog_view, null);
             builder.setView(dialogView);
-            builder.setTitle("Créer une nouvelle Note");
+            builder.setTitle("Création d'une nouvelle Note");
 
             /**
              * Bouton Valider
              */
             builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
-                private EditText input;//Input de la fenêtre de dialog
+                private EditText inputTitle;//Input de la fenêtre de dialog
+                private EditText inputContent;
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
                     AlertDialog alertDialog = (AlertDialog) dialogInterface;
-                    input = alertDialog.findViewById(R.id.dialog_input);
-                    addItem(input.getText().toString());
+                    inputTitle = alertDialog.findViewById(R.id.dialog_inputTitle);
+                    inputContent = alertDialog.findViewById(R.id.dialog_inputContent);
+                    Note note = new Note(inputTitle.getText().toString(), inputContent.getText().toString());
+                    addItem(note);
                     Log.d("Dialog", "Valider");
                 }
             });
