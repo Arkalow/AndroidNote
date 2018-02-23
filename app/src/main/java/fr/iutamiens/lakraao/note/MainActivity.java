@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         ((NameAdapter) recyclerView.getAdapter()).add(text);
     }
 
-    /*
+    /***
      * Créer le menu
      */
     @Override
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-    /*
-     *
+    /***
+     * Selection du menu
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.share){
