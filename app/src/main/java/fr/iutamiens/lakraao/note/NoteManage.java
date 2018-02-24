@@ -1,18 +1,16 @@
 package fr.iutamiens.lakraao.note;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/***
+ * Fait le lien des notes vers la base de donnée
  * Created by omer on 24/02/18.
  */
-
 public class NoteManage {
     /***
      * Retourne la liste de toutes les notes de la database

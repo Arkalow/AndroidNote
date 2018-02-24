@@ -13,9 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+/***
+ * Fenêtre où toutes les notes sont affichées
+ */
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView; //List of item
     private DatabaseOpenHelper openHelper; //database
+
+    /***
+     * Procédure appelé à la création de la fenêtre
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
     }
     /***
      * Selection d'un bouton du menu
+     * @param item Selected item
      */
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.share){
             final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

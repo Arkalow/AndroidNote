@@ -1,9 +1,9 @@
 package fr.iutamiens.lakraao.note;
 
-/**
+/***
+ * Représente une note
  * Created by omer on 23/02/18.
  */
-
 public class Note {
     private String title;//titre de la note
     private String content;//contenu de la note

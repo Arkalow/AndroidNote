@@ -19,6 +19,12 @@ public class NameViewHolder extends RecyclerView.ViewHolder {
     public NameViewHolder(View itemView) {
         super(itemView);
         textView = itemView.findViewById(R.id.item);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
     }
 
     /***
