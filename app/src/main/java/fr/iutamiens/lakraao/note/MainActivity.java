@@ -47,21 +47,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /***
-     * Met à jour la liste des notes
-     */
-    private void updateNote(){
-        ((NameAdapter) recyclerView.getAdapter()).update();
-    }
-
-    /***
      * Affiche une note dans une autre activity
      * @param note note à afficher
      */
     public void selectNote(Note note){
         Intent intent = new Intent(this, NoteActivity.class);
-        intent.putExtra("NoteId", note.getId());
-        startActivity(intent);
+        try{
+            intent.putExtra("NoteId", note.getId());
+            startActivity(intent);
+        }catch (Exception e){
+            Log.e("Intent", "La note n'existe pas");
+            ((NameAdapter) recyclerView.getAdapter()).notifyDataSetChanged();
+        }
     }
+
 
     /***
      * Créer le menu
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     inputContent = alertDialog.findViewById(R.id.dialog_inputContent);
                     Note note = new Note(inputTitle.getText().toString(), inputContent.getText().toString());
                     addNote(note);
-                    updateNote();
+                    ((NameAdapter) recyclerView.getAdapter()).update();
                     Log.d("Dialog", "Valider");
                 }
             });
@@ -117,5 +116,16 @@ public class MainActivity extends AppCompatActivity {
             builder.create().show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Restauration
+     */
+    @Override
+    public void onResume (){
+        super.onResume();
+
+        Log.d("Status", "Main : onResume");
+        ((NameAdapter) recyclerView.getAdapter()).notifyDataSetChanged();
     }
 }

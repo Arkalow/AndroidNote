@@ -39,7 +39,7 @@ public class NoteManage {
             String content = cursor.getString(contentIndex);
             Note note = new Note(id, title, content);
             notes.add(note);
-            Log.d("Database", note.toString());
+            Log.d("Database", "Select : " + note.toString());
         }
         cursor.close();
 
@@ -79,6 +79,7 @@ public class NoteManage {
     /***
      * Ajoute une note dans la database
      * @param note note à ajouter
+     * @param databaseOpenHelper base de donnée
      * @return return note
      */
     public static Note add(Note note, DatabaseOpenHelper databaseOpenHelper){
@@ -94,5 +95,21 @@ public class NoteManage {
             Log.e("Database", e.getMessage());
         }
         return note;
+    }
+
+    /***
+     * Supprime une note dans la database
+     * @param note note à spprimer
+     * @param databaseOpenHelper base de donnée
+     */
+    public static void delete(Note note, DatabaseOpenHelper databaseOpenHelper){
+        try{
+            SQLiteDatabase database = databaseOpenHelper.getWritableDatabase();
+            database.delete("notes", "id = ?", new String[]{note.getId()+""});
+            Log.d("Database", "Delete : " + note.toString());
+        }catch(Exception e){
+            Log.e("Database", "Error delete note");
+            Log.e("Database", e.getMessage());
+        }
     }
 }

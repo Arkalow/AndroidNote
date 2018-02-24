@@ -27,12 +27,13 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
         notifyItemInserted(getItemCount());
     }
 
+
     /***
      * Met à jour la liste des notes
      */
     public void update(){
+
         notes = NoteManage.selectAll(DatabaseOpenHelper.getSelf(context));
-        notifyItemInserted(getItemCount());
     }
 
     /***

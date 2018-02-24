@@ -1,5 +1,6 @@
 package fr.iutamiens.lakraao.note;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ public class NoteActivity extends AppCompatActivity {
 
     private TextView title;
     private TextView content;
+    private Note note;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +27,24 @@ public class NoteActivity extends AppCompatActivity {
          */
         Bundle b = getIntent().getExtras();
         int noteId = b.getInt("NoteId");
-        Note note = NoteManage.select(noteId, DatabaseOpenHelper.getSelf(this));
+        try{
+            note = NoteManage.select(noteId, DatabaseOpenHelper.getSelf(this));
+        }catch (Exception e){
+            Log.e("Intent", "La note n'existe pas !");
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+        /***
+         * Affichage
+         */
         title.setText(note.getTitle());
         content.setText(note.getContent());
     }
     /***
-     * Créer le menu
+     * Création du menu
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,9 +57,6 @@ public class NoteActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.share){
-
-        }
         switch (item.getItemId()){
             case R.id.share:
                 Log.d("Menu", "share");
@@ -55,6 +66,11 @@ public class NoteActivity extends AppCompatActivity {
                 break;
             case R.id.delete:
                 Log.d("Menu", "delete");
+                NoteManage.delete(note, DatabaseOpenHelper.getSelf(this));
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
