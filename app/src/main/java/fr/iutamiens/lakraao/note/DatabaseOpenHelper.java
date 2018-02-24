@@ -3,6 +3,7 @@ package fr.iutamiens.lakraao.note;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /***
  * Created by omer on 23/02/18.
@@ -22,7 +23,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
      */
     public static DatabaseOpenHelper getSelf(Context context){
         if(self == null){
+            Log.d("Database", "Création de la connexion");
             self = new DatabaseOpenHelper(context);
+        }else {
+            Log.d("Database", "Récupération de la connexion");
         }
         return self;
     }

@@ -18,7 +18,7 @@ public class NoteManage {
      */
     public static List<Note> selectAll(DatabaseOpenHelper databaseOpenHelper){
         List<Note> notes = new ArrayList<>();
-        SQLiteDatabase database = null;
+        SQLiteDatabase database;
         Cursor cursor;
         try{
             database = databaseOpenHelper.getReadableDatabase();
@@ -47,7 +47,7 @@ public class NoteManage {
     }
 
     public static Note select(int id, DatabaseOpenHelper databaseOpenHelper){
-        SQLiteDatabase database = null;
+        SQLiteDatabase database;
         Cursor cursor;
         try{
             database = databaseOpenHelper.getReadableDatabase();
@@ -63,7 +63,7 @@ public class NoteManage {
         int idIndex = cursor.getColumnIndex("id");
         int titleIndex = cursor.getColumnIndex("title");
         int contentIndex = cursor.getColumnIndex("content");
-
+        cursor.moveToNext();
         Note note = new Note(
                 cursor.getInt(idIndex),
                 cursor.getString(titleIndex),
