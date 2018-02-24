@@ -46,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
         NoteManage.add(note, openHelper);//Ajout à la BD
     }
 
+    /***
+     * Met à jour la liste des notes
+     */
+    private void updateNote(){
+        ((NameAdapter) recyclerView.getAdapter()).update();
+    }
+
+    /***
+     * Affiche une note dans une autre activity
+     * @param note note à afficher
+     */
     public void selectNote(Note note){
         Intent intent = new Intent(this, NoteActivity.class);
         intent.putExtra("NoteId", note.getId());
@@ -88,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     inputContent = alertDialog.findViewById(R.id.dialog_inputContent);
                     Note note = new Note(inputTitle.getText().toString(), inputContent.getText().toString());
                     addNote(note);
+                    updateNote();
                     Log.d("Dialog", "Valider");
                 }
             });
