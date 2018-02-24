@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
     private List<Note> notes;
+    private Context context;
     private final LayoutInflater layoutInflater;
 
     /***
@@ -31,6 +32,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
      * @param context
      */
     public NameAdapter(Context context) {
+        this.context = context;
         layoutInflater = LayoutInflater.from(context);
         notes = NoteManage.selectAll(DatabaseOpenHelper.getSelf(context));
     }
@@ -45,7 +47,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
     public NameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d("NameAdapter", "onCreateViewHolder");
         View view = layoutInflater.inflate(R.layout.listitem_name, parent, false);
-        return new NameViewHolder(view);
+        return new NameViewHolder(view, context);
     }
 
     /***

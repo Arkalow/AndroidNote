@@ -2,6 +2,7 @@ package fr.iutamiens.lakraao.note;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
     private void addNote(Note note) {
         ((NameAdapter) recyclerView.getAdapter()).add(note);//Ajout à la liste
         NoteManage.add(note, openHelper);//Ajout à la BD
+    }
+
+    public void selectNote(Note note){
+        Intent intent = new Intent(this, NoteActivity.class);
+        intent.putExtra("NoteId", note.getId());
+        startActivity(intent);
     }
 
     /***

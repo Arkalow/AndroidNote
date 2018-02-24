@@ -1,5 +1,7 @@
 package fr.iutamiens.lakraao.note;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -12,17 +14,19 @@ import android.widget.TextView;
 public class NameViewHolder extends RecyclerView.ViewHolder {
 
     private TextView textView;
+    private Note note;
     /***
      * Constructeur de NameViewHolder
      * @param itemView La vue à afficher
      */
-    public NameViewHolder(View itemView) {
+    public NameViewHolder(View itemView, final Context context) {
         super(itemView);
+
         textView = itemView.findViewById(R.id.item);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                ((MainActivity)context).selectNote(note);
             }
         });
     }
@@ -32,6 +36,7 @@ public class NameViewHolder extends RecyclerView.ViewHolder {
      * @param note
      */
     public void bind(Note note) {
+        this.note = note;
         textView.setText(note.getTitle());
         Log.d("NameViewHolder", textView.getText().toString());
     }
