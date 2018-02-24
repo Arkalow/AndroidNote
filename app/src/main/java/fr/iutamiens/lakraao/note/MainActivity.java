@@ -2,8 +2,6 @@ package fr.iutamiens.lakraao.note;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,13 +11,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
-    private RecyclerView recyclerView; //Liste d'item
-    private DatabaseOpenHelper openHelper; //base de donnée
+    private RecyclerView recyclerView; //List of item
+    private DatabaseOpenHelper openHelper; //database
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,32 +26,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new NameAdapter(this));
 
-
-
-        openHelper = new DatabaseOpenHelper(this);
-        SQLiteDatabase database = openHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM todo", null);
-
-        int idIndex = cursor.getColumnIndex("id");
-        int nameIndex = cursor.getColumnIndex("name");
-        while(cursor.moveToNext()){
-            int id = cursor.getInt(idIndex);
-            int name = cursor.getInt(nameIndex);
-            Log.d("Query", "id = " + id + "| name = " + name);
-        }
-        cursor.close();
-
-    }
-    public void addItemToDatabase(String item){
-
+        openHelper = DatabaseOpenHelper.getSelf(this);
     }
 
     /***
-     * Ajout un item au system
-     * @param text de l'item à ajouter
+     * Ajout d'une note à la liste
+     * @param note note à ajouter
      */
-    private void addItem(Note note) {
-        ((NameAdapter) recyclerView.getAdapter()).add(note);
+    private void addNote(Note note) {
+        ((NameAdapter) recyclerView.getAdapter()).add(note);//Ajout à la liste
+        NoteManage.add(note, openHelper);//Ajout à la BD
     }
 
     /***
@@ -91,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     inputTitle = alertDialog.findViewById(R.id.dialog_inputTitle);
                     inputContent = alertDialog.findViewById(R.id.dialog_inputContent);
                     Note note = new Note(inputTitle.getText().toString(), inputContent.getText().toString());
-                    addItem(note);
+                    addNote(note);
                     Log.d("Dialog", "Valider");
                 }
             });

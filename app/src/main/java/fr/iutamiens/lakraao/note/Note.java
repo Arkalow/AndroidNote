@@ -5,9 +5,14 @@ package fr.iutamiens.lakraao.note;
  */
 
 public class Note {
-    private String title;
-    private String content;
+    private String title;//titre de la note
+    private String content;//contenu de la note
 
+    /***
+     * Constructeur d'une note
+     * @param title titre de la note
+     * @param content contenu de la note
+     */
     public Note(String title, String content){
         this.title = title;
         this.content = content;
