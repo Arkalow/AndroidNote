@@ -46,6 +46,36 @@ public class NoteManage {
         return notes;
     }
 
+    public static Note select(int id, DatabaseOpenHelper databaseOpenHelper){
+        SQLiteDatabase database = null;
+        Cursor cursor;
+        try{
+            database = databaseOpenHelper.getReadableDatabase();
+            String sql = "SELECT * FROM notes WHERE id = " + id;
+            cursor = database.rawQuery(sql, null);
+        }catch(Exception e){
+            Log.e("Database", "Error select note");
+            Log.e("Database", e.getMessage());
+            return null;
+        }
+
+
+        int idIndex = cursor.getColumnIndex("id");
+        int titleIndex = cursor.getColumnIndex("title");
+        int contentIndex = cursor.getColumnIndex("content");
+
+        Note note = new Note(
+                cursor.getInt(idIndex),
+                cursor.getString(titleIndex),
+                cursor.getString(contentIndex)
+        );
+        Log.d("Database", note.toString());
+
+        cursor.close();
+        Log.d("Database", "select : " + note.toString());
+        return note;
+    }
+
     /***
      * Ajoute une note dans la database
      * @param note note à ajouter

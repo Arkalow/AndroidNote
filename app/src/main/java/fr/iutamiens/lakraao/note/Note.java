@@ -49,4 +49,9 @@ public class Note {
 
     public int setId(int id){ this.id = id;return id; }
     public int getId(){return id;}
+
+    @Override
+    public String toString(){
+        return "Note { id : " + id + ", title : " + title + ", content : " + content + " }";
+    }
 }

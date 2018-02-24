@@ -26,6 +26,7 @@ public class NameViewHolder extends RecyclerView.ViewHolder {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Intent", note.toString());
                 ((MainActivity)context).selectNote(note);
             }
         });
