@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +18,34 @@ public class NoteManage {
      * Retourne la liste de toutes les notes de la database
      * @return
      */
-    public static List<Note> selectAll(){
-        return null;
+    public static List<Note> selectAll(DatabaseOpenHelper databaseOpenHelper){
+        List<Note> notes = new ArrayList<>();
+        SQLiteDatabase database = null;
+        Cursor cursor;
+        try{
+            database = databaseOpenHelper.getReadableDatabase();
+            cursor = database.rawQuery("SELECT * FROM notes", null);
+        }catch(Exception e){
+            Log.e("Database", "Error selectAll note");
+            Log.e("Database", e.getMessage());
+            return notes;
+        }
+
+
+        int idIndex = cursor.getColumnIndex("id");
+        int titleIndex = cursor.getColumnIndex("title");
+        int contentIndex = cursor.getColumnIndex("content");
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(idIndex);
+            String title = cursor.getString(titleIndex);
+            String content = cursor.getString(contentIndex);
+            Note note = new Note(id, title, content);
+            notes.add(note);
+            Log.d("Database", note.toString());
+        }
+        cursor.close();
+
+        return notes;
     }
 
     /***
@@ -33,7 +60,6 @@ public class NoteManage {
             values.put("title", note.getTitle());
             values.put("content", note.getContent());
             database.insert("notes", null, values);
-            database.close();
             Log.d("Database", "Ajout d'une note dans la base de donnée");
         }catch(Exception e){
             Log.e("Database", "Error add note");
@@ -42,18 +68,3 @@ public class NoteManage {
         return note;
     }
 }
-
-/*
-        openHelper = DatabaseOpenHelper.getSelf(this);
-        SQLiteDatabase database = openHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM todo", null);
-
-        int idIndex = cursor.getColumnIndex("id");
-        int nameIndex = cursor.getColumnIndex("name");
-        while(cursor.moveToNext()){
-            int id = cursor.getInt(idIndex);
-            int name = cursor.getInt(nameIndex);
-            Log.d("Query", "id = " + id + "| name = " + name);
-        }
-        cursor.close();
-* */

@@ -7,6 +7,7 @@ package fr.iutamiens.lakraao.note;
 public class Note {
     private String title;//titre de la note
     private String content;//contenu de la note
+    private int id;//id de note
 
     /***
      * Constructeur d'une note
@@ -16,6 +17,18 @@ public class Note {
     public Note(String title, String content){
         this.title = title;
         this.content = content;
+    }
+
+    /***
+     * Constructeur d'une note
+     * @param id Identifiant de la note
+     * @param title titre de la note
+     * @param content contenu de la note
+     */
+    public Note(int id, String title, String content){
+        this.title = title;
+        this.content = content;
+        this.id = id;
     }
 
     /***
@@ -33,4 +46,7 @@ public class Note {
     public String getContent(){
         return content;
     }
+
+    public int setId(int id){ this.id = id;return id; }
+    public int getId(){return id;}
 }

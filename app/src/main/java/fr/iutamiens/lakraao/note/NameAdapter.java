@@ -14,7 +14,7 @@ import java.util.List;
  * Created by omer on 22/02/18.
  */
 public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
-    private List<Note> items = new ArrayList<>();
+    private List<Note> notes;
     private final LayoutInflater layoutInflater;
 
     /***
@@ -23,7 +23,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
      */
     public void add(Note note) {
         Log.d("NameAdapter", "Add element");
-        items.add(note);
+        notes.add(note);
         notifyItemInserted(getItemCount());
     }
 
@@ -33,6 +33,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
      */
     public NameAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
+        notes = NoteManage.selectAll(DatabaseOpenHelper.getSelf(context));
     }
 
     /***
@@ -58,7 +59,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
         Log.d("NameAdapter", "onBindViewHolder");
 
         //On l'envoi au viewholder pour qu'il l'affiche
-        holder.bind(items.get(position));
+        holder.bind(notes.get(position));
     }
 
     /***
@@ -67,7 +68,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
      */
     @Override
     public int getItemCount() {
-        return items.size();
+        return notes.size();
     }
 
     @Override
