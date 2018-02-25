@@ -18,7 +18,6 @@ import android.widget.EditText;
  * Fenêtre où toutes les notes sont affichées
  */
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView; //List of item
     private DatabaseOpenHelper openHelper; //database
     private NameAdapter nameAdapter;
 
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         /***
          * nameAdapter : contient la liste des notes
          */
+        RecyclerView recyclerView; //List of item
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
              */
             builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
                 private EditText inputTitle;//Input de la fenêtre de dialog
-                private EditText inputContent;
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
@@ -108,14 +107,12 @@ public class MainActivity extends AppCompatActivity {
                      */
                     AlertDialog alertDialog = (AlertDialog) dialogInterface;
                     inputTitle = alertDialog.findViewById(R.id.dialog_inputTitle);
-                    inputContent = alertDialog.findViewById(R.id.dialog_inputContent);
 
                     /***
                      * Ajout de la note
                      */
                     addNote(new Note(
-                            inputTitle.getText().toString(),
-                            inputContent.getText().toString()
+                            inputTitle.getText().toString(),""
                     ));
                     nameAdapter.update();
                 }

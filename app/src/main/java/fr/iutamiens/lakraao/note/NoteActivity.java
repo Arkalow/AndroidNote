@@ -52,7 +52,7 @@ public class NoteActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.note_menu, menu);
         return true;
     }
-    
+
     /***
      * Selection d'un bouton du menu
      * @param item Selected item

@@ -19,7 +19,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
 
     /***
      * Ajoute un note
-     * @param note
+     * @param note note à ajouter
      */
     public void add(Note note) {
         Log.d("NameAdapter", "Add element");
@@ -38,7 +38,7 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
 
     /***
      * Constructeur de NameAdapter
-     * @param context
+     * @param context context d'une activity
      */
     public NameAdapter(Context context) {
         this.context = context;
@@ -48,9 +48,9 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
 
     /***
      * Créer la vue d'un cellule
-     * @param parent
-     * @param viewType
-     * @return
+     * @param parent viewGroup
+     * @param viewType viewType
+     * @return retourne le NameViewHolder crée
      */
     @Override
     public NameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
