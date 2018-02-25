@@ -99,6 +99,10 @@ public class NoteActivity extends AppCompatActivity {
                 });
                 builder.create().show();
                 break;
+            case R.id.close:
+                Log.d("Menu", "close");
+                finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
