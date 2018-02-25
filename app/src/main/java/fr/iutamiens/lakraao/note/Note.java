@@ -63,4 +63,15 @@ public class Note {
     public String toString(){
         return "Note { id : " + id + ", title : " + title + ", content : " + content + " }";
     }
+
+    /***
+     * Exporte la note en chaine de caractère
+     * @return note en StringBuilder
+     */
+    public StringBuilder export(){
+        StringBuilder str = new StringBuilder();
+        str.append(getTitle() +"  : \n\n");
+        str.append(getContent());
+        return str;
+    }
 }

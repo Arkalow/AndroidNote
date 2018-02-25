@@ -62,19 +62,38 @@ public class NoteActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.share:
                 Log.d("Menu", "share");
+                share();
                 break;
             case R.id.edit:
                 Log.d("Menu", "edit");
                 break;
             case R.id.delete:
                 Log.d("Menu", "delete");
-                NoteManage.delete(note, DatabaseOpenHelper.getSelf(this));
-
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                delete();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /***
+     * Supprimer la note
+     */
+    private void delete(){
+        NoteManage.delete(note, DatabaseOpenHelper.getSelf(this));
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /***
+     * Partage la note
+     */
+    private void share(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, note.export().toString());
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, "Share your note"));
     }
 }
