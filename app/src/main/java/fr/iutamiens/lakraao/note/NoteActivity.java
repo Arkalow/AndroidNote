@@ -166,5 +166,6 @@ public class NoteActivity extends AppCompatActivity {
      */
     private void save(){
         Log.d("SaveNote", "Save");
+        NoteManage.update(new Note(note.getId(), note.getTitle(), content.getText().toString()), DatabaseOpenHelper.getSelf(this));
     }
 }

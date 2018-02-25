@@ -123,4 +123,20 @@ public class NoteManage {
             Log.e("Database", e.getMessage());
         }
     }
+
+    public static Note update(Note note, DatabaseOpenHelper databaseOpenHelper){
+        try{
+            SQLiteDatabase database = databaseOpenHelper.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("id", note.getId());
+            contentValues.put("title", note.getTitle());
+            contentValues.put("content",note.getContent());
+            database.update("notes", contentValues,"id = ?", new String[]{ note.getId()+"" });
+            Log.d("Database", "Update : " + note.toString());
+        }catch(Exception e){
+            Log.e("Database", "Error update note");
+            Log.e("Database", e.getMessage());
+        }
+        return note;
+    }
 }

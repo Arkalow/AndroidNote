@@ -31,7 +31,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             Log.d("Database", "Création de la connexion");
             self = new DatabaseOpenHelper(context);
         }else {
-            Log.e("Database", "Echec récupération de la connexion");
+            Log.d("Database", "Récupération de la connexion");
         }
         return self;
     }
