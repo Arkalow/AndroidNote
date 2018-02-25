@@ -20,6 +20,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView; //List of item
     private DatabaseOpenHelper openHelper; //database
+    private NameAdapter nameAdapter;
 
     /***
      * Procédure appelé à la création de la fenêtre
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new NameAdapter(this));
+        nameAdapter = ((NameAdapter) recyclerView.getAdapter());
 
         openHelper = DatabaseOpenHelper.getSelf(this);
     }
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
      * @param note note à ajouter
      */
     private void addNote(Note note) {
-        ((NameAdapter) recyclerView.getAdapter()).add(note);//Ajout à la liste
+        nameAdapter.add(note);//Ajout à la liste
         NoteManage.add(note, openHelper);//Ajout à la BD
     }
 
@@ -126,6 +128,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         Log.d("Status", "Main : onResume");
-        ((NameAdapter) recyclerView.getAdapter()).notifyDataSetChanged();
+        ((NameAdapter) recyclerView.getAdapter()).update();
     }
 }

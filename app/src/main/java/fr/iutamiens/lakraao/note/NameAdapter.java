@@ -32,8 +32,8 @@ public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
      * Met à jour la liste des notes
      */
     public void update(){
-
         notes = NoteManage.selectAll(DatabaseOpenHelper.getSelf(context));
+        notifyDataSetChanged();
     }
 
     /***
