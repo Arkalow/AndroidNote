@@ -1,5 +1,7 @@
 package fr.iutamiens.lakraao.note;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -7,12 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class NoteActivity extends AppCompatActivity {
 
-    private TextView title;
-    private TextView content;
     private Note note;
 
     @Override
@@ -20,8 +21,6 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
-        title = findViewById(R.id.title);
-        content = findViewById(R.id.content);
 
         /***
          * Récupération de la note
@@ -41,6 +40,8 @@ public class NoteActivity extends AppCompatActivity {
         /***
          * Affichage
          */
+        TextView title = findViewById(R.id.title);
+        TextView content = findViewById(R.id.content);
         title.setText(note.getTitle());
         content.setText(note.getContent());
     }
@@ -69,7 +70,33 @@ public class NoteActivity extends AppCompatActivity {
                 break;
             case R.id.delete:
                 Log.d("Menu", "delete");
-                delete();
+
+                /***
+                 * AlertDialog
+                 */
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Voulez-vous vraiment supprimer la note ?");
+                /**
+                 * Bouton Valider
+                 */
+                builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Log.d("Dialog", "Valider");
+                        delete();
+                    }
+                });
+
+                /**
+                 * Bouton Annuler
+                 */
+                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Log.d("Dialog", "Annuler");
+                    }
+                });
+                builder.create().show();
                 break;
         }
         return super.onOptionsItemSelected(item);

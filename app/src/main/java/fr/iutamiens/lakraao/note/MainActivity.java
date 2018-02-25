@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             /***
              * AlertDialog
              */
-            final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             LayoutInflater layoutInflater = getLayoutInflater();
             View dialogView = layoutInflater.inflate(R.layout.dialog_view, null);
             builder.setView(dialogView);
