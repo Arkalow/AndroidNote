@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class NoteActivity extends AppCompatActivity {
-
+    EditText content;
     private Note note;
 
     @Override
@@ -41,7 +41,7 @@ public class NoteActivity extends AppCompatActivity {
          * Affichage
          */
         TextView title = findViewById(R.id.title);
-        EditText content = findViewById(R.id.content);
+        content = findViewById(R.id.content);
         title.setText(note.getTitle());
         content.setText(note.getContent());
         setTitle(note.getTitle());
@@ -61,9 +61,11 @@ public class NoteActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch (item.getItemId()){
             case R.id.save:
                 Log.d("Menu", "save");
+                save();
                 finish();
                 break;
             case R.id.share:
@@ -76,7 +78,6 @@ public class NoteActivity extends AppCompatActivity {
                 /***
                  * AlertDialog
                  */
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Voulez-vous vraiment supprimer la note ?");
                 /**
                  * Bouton Valider
@@ -99,6 +100,37 @@ public class NoteActivity extends AppCompatActivity {
                     }
                 });
                 builder.create().show();
+                break;
+            case R.id.close:
+                Log.d("Menu", "close");
+                if (content.getText().toString() != note.getContent()){
+                    /***
+                     * AlertDialog
+                     */
+                    builder.setTitle("Voulez-vous enregistrer les modifications ?");
+                    /**
+                     * Bouton Valider
+                     */
+                    builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            Log.d("Dialog", "Valider");
+                            save();
+                            finish();
+                        }
+                    });
+
+                    /**
+                     * Bouton Annuler
+                     */
+                    builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            Log.d("Dialog", "Annuler");
+                        }
+                    });
+                    builder.create().show();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -130,6 +162,6 @@ public class NoteActivity extends AppCompatActivity {
      * Sauvegarde la note
      */
     private void save(){
-
+        Log.d("SaveNote", "Save");
     }
 }
