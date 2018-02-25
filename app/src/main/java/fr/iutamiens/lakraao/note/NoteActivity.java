@@ -103,7 +103,7 @@ public class NoteActivity extends AppCompatActivity {
                 break;
             case R.id.close:
                 Log.d("Menu", "close");
-                if (content.getText().toString() != note.getContent()){
+                if (!content.getText().toString().equals(note.getContent())){
                     /***
                      * AlertDialog
                      */
@@ -127,9 +127,12 @@ public class NoteActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int which) {
                             Log.d("Dialog", "Annuler");
+                            finish();
                         }
                     });
                     builder.create().show();
+                }else{
+                    finish();
                 }
                 break;
         }
