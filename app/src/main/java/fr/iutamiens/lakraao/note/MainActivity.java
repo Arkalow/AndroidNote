@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         nameAdapter = ((NameAdapter) recyclerView.getAdapter());
 
         openHelper = DatabaseOpenHelper.getSelf(this);// Base de donnée
+
     }
 
     /***

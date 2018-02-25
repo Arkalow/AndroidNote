@@ -61,7 +61,6 @@ public class NoteActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch (item.getItemId()){
             case R.id.save:
                 Log.d("Menu", "save");
@@ -78,6 +77,7 @@ public class NoteActivity extends AppCompatActivity {
                 /***
                  * AlertDialog
                  */
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Voulez-vous vraiment supprimer la note ?");
                 /**
                  * Bouton Valider
@@ -103,37 +103,7 @@ public class NoteActivity extends AppCompatActivity {
                 break;
             case R.id.close:
                 Log.d("Menu", "close");
-                if (!content.getText().toString().equals(note.getContent())){
-                    /***
-                     * AlertDialog
-                     */
-                    builder.setTitle("Voulez-vous enregistrer les modifications ?");
-                    /**
-                     * Bouton Valider
-                     */
-                    builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int which) {
-                            Log.d("Dialog", "Valider");
-                            save();
-                            finish();
-                        }
-                    });
-
-                    /**
-                     * Bouton Annuler
-                     */
-                    builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int which) {
-                            Log.d("Dialog", "Annuler");
-                            finish();
-                        }
-                    });
-                    builder.create().show();
-                }else{
-                    finish();
-                }
+                close();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -167,5 +137,44 @@ public class NoteActivity extends AppCompatActivity {
     private void save(){
         Log.d("SaveNote", "Save");
         NoteManage.update(new Note(note.getId(), note.getTitle(), content.getText().toString()), DatabaseOpenHelper.getSelf(this));
+    }
+
+    private void close(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (!content.getText().toString().equals(note.getContent())){
+            /***
+             * AlertDialog
+             */
+            builder.setTitle("Voulez-vous enregistrer les modifications ?");
+            /**
+             * Bouton Valider
+             */
+            builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    Log.d("Dialog", "Valider");
+                    save();
+                    finish();
+                }
+            });
+
+            /**
+             * Bouton Annuler
+             */
+            builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    Log.d("Dialog", "Annuler");
+                    finish();
+                }
+            });
+            builder.create().show();
+        }else{
+            finish();
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        close();
     }
 }
