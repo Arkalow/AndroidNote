@@ -14,6 +14,7 @@ public class NoteActivity extends AppCompatActivity {
     private TextView title;
     private TextView content;
     private Note note;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class NoteActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.note_menu, menu);
         return true;
     }
+    
     /***
      * Selection d'un bouton du menu
      * @param item Selected item

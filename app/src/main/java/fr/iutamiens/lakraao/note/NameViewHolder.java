@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * Class qui représente un item
+ * Class qui représente un item (ici une note)
  * Created by omer on 22/02/18.
  */
 public class NameViewHolder extends RecyclerView.ViewHolder {
@@ -22,6 +22,10 @@ public class NameViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         textView = itemView.findViewById(R.id.item);
+
+        /***
+         * Click sur un item
+         */
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

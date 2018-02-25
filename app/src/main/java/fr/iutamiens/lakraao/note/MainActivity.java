@@ -30,13 +30,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /***
+         * nameAdapter : contient la liste des notes
+         */
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new NameAdapter(this));
         nameAdapter = ((NameAdapter) recyclerView.getAdapter());
 
-        openHelper = DatabaseOpenHelper.getSelf(this);
+        openHelper = DatabaseOpenHelper.getSelf(this);// Base de donnée
     }
 
     /***
@@ -59,10 +62,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }catch (Exception e){
             Log.e("Intent", "La note n'existe pas");
-            ((NameAdapter) recyclerView.getAdapter()).notifyDataSetChanged();
+            nameAdapter.notifyDataSetChanged();
         }
     }
-
 
     /***
      * Créer le menu
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     /***
      * Selection d'un bouton du menu
      * @param item Selected item
@@ -79,8 +82,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.share){
-            final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
+            /***
+             * AlertDialog
+             */
+            final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             LayoutInflater layoutInflater = getLayoutInflater();
             View dialogView = layoutInflater.inflate(R.layout.dialog_view, null);
             builder.setView(dialogView);
@@ -95,13 +101,23 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
+                    Log.d("Dialog", "Valider");
+
+                    /***
+                     * AlertDialog
+                     */
                     AlertDialog alertDialog = (AlertDialog) dialogInterface;
                     inputTitle = alertDialog.findViewById(R.id.dialog_inputTitle);
                     inputContent = alertDialog.findViewById(R.id.dialog_inputContent);
-                    Note note = new Note(inputTitle.getText().toString(), inputContent.getText().toString());
-                    addNote(note);
-                    ((NameAdapter) recyclerView.getAdapter()).update();
-                    Log.d("Dialog", "Valider");
+
+                    /***
+                     * Ajout de la note
+                     */
+                    addNote(new Note(
+                            inputTitle.getText().toString(),
+                            inputContent.getText().toString()
+                    ));
+                    nameAdapter.update();
                 }
             });
 
@@ -121,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Restauration
+     * Restauration de l'activity
      */
     @Override
     public void onResume (){
         super.onResume();
 
         Log.d("Status", "Main : onResume");
-        ((NameAdapter) recyclerView.getAdapter()).update();
+        nameAdapter.update();
     }
 }

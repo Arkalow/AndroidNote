@@ -33,7 +33,7 @@ public class Note {
 
     /***
      * Accessor title
-     * @return
+     * @return retourne le titre de la note
      */
     public String getTitle(){
         return title;
@@ -41,15 +41,24 @@ public class Note {
 
     /***
      * Accessor content
-     * @return
+     * @return retourne le contenu de la note
      */
     public String getContent(){
         return content;
     }
 
-    public int setId(int id){ this.id = id;return id; }
-    public int getId(){return id;}
+    /***
+     * Accessor id
+     * @return retourne l'id de la note
+     */
+    public int getId(){
+        return id;
+    }
 
+    /***
+     * Convertie la note sous forme de chaine de craractère
+     * @return retourne la note en string
+     */
     @Override
     public String toString(){
         return "Note { id : " + id + ", title : " + title + ", content : " + content + " }";

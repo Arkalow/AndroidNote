@@ -12,9 +12,11 @@ import java.util.List;
  * Created by omer on 24/02/18.
  */
 public class NoteManage {
+
     /***
-     * Retourne la liste de toutes les notes de la database
-     * @return
+     * Récupère la liste de toutes les notes de la database
+     * @param databaseOpenHelper base de donnée
+     * @return liste de note
      */
     public static List<Note> selectAll(DatabaseOpenHelper databaseOpenHelper){
         List<Note> notes = new ArrayList<>();
@@ -29,7 +31,9 @@ public class NoteManage {
             return notes;
         }
 
-
+        /***
+         * Lecture des notes récupérée
+         */
         int idIndex = cursor.getColumnIndex("id");
         int titleIndex = cursor.getColumnIndex("title");
         int contentIndex = cursor.getColumnIndex("content");
@@ -39,13 +43,19 @@ public class NoteManage {
             String content = cursor.getString(contentIndex);
             Note note = new Note(id, title, content);
             notes.add(note);
-            Log.d("Database", "Select : " + note.toString());
+            Log.d("Database", "Select(All) : " + note.toString());
         }
         cursor.close();
 
         return notes;
     }
 
+    /***
+     * Récupère une seule note de la base de donnée
+     * @param id id de la note à recupérer
+     * @param databaseOpenHelper base de donnée
+     * @return retourne la note récupérer dans la base de donnée portant l'id passé en paramètre
+     */
     public static Note select(int id, DatabaseOpenHelper databaseOpenHelper){
         SQLiteDatabase database;
         Cursor cursor;
@@ -59,7 +69,9 @@ public class NoteManage {
             return null;
         }
 
-
+        /***
+         * Lecture des données récupérée
+         */
         int idIndex = cursor.getColumnIndex("id");
         int titleIndex = cursor.getColumnIndex("title");
         int contentIndex = cursor.getColumnIndex("content");
@@ -69,7 +81,6 @@ public class NoteManage {
                 cursor.getString(titleIndex),
                 cursor.getString(contentIndex)
         );
-        Log.d("Database", note.toString());
 
         cursor.close();
         Log.d("Database", "select : " + note.toString());

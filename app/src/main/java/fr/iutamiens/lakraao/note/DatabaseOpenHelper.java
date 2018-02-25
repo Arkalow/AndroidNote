@@ -10,11 +10,16 @@ import android.util.Log;
  */
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
+    private static DatabaseOpenHelper self = null;//Instance unique de la classe DatabaseOpenHelper
+
+    /***
+     * Constructeur de DatabaseOpenHelper
+     * @param context context
+     */
     private DatabaseOpenHelper(Context context){
         super(context, "database", null, 1);
         self = this;
     }
-    private static DatabaseOpenHelper self = null;//Instance unique de la classe DatabaseOpenHelper
 
     /***
      * Retourne l'instance unique de la classe DatabaseOpenHelper
@@ -26,7 +31,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             Log.d("Database", "Création de la connexion");
             self = new DatabaseOpenHelper(context);
         }else {
-            Log.d("Database", "Récupération de la connexion");
+            Log.e("Database", "Echec récupération de la connexion");
         }
         return self;
     }

@@ -13,17 +13,17 @@ import java.util.List;
  * Created by omer on 22/02/18.
  */
 public class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
-    private List<Note> notes;
-    private Context context;
+    private List<Note> notes; //List des notes
+    private Context context; // Context de l'activity main
     private final LayoutInflater layoutInflater;
 
     /***
-     * Ajoute un textView
+     * Ajoute un note
      * @param note
      */
     public void add(Note note) {
         Log.d("NameAdapter", "Add element");
-        notes.add(note);
+        notes.add(note);//Ajout à la liste
         notifyItemInserted(getItemCount());
     }
 
