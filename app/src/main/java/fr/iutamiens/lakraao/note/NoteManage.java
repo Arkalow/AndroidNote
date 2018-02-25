@@ -24,7 +24,7 @@ public class NoteManage {
         Cursor cursor;
         try{
             database = databaseOpenHelper.getReadableDatabase();
-            cursor = database.rawQuery("SELECT * FROM notes", null);
+            cursor = database.rawQuery("SELECT * FROM notes ORDER BY id DESC", null);
         }catch(Exception e){
             Log.e("Database", "Error selectAll note");
             Log.e("Database", e.getMessage());
