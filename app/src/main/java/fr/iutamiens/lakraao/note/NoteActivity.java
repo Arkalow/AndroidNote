@@ -41,7 +41,7 @@ public class NoteActivity extends AppCompatActivity {
          * Affichage
          */
         TextView title = findViewById(R.id.title);
-        TextView content = findViewById(R.id.content);
+        EditText content = findViewById(R.id.content);
         title.setText(note.getTitle());
         content.setText(note.getContent());
         setTitle(note.getTitle());
@@ -62,12 +62,13 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.save:
+                Log.d("Menu", "save");
+                finish();
+                break;
             case R.id.share:
                 Log.d("Menu", "share");
                 share();
-                break;
-            case R.id.edit:
-                Log.d("Menu", "edit");
                 break;
             case R.id.delete:
                 Log.d("Menu", "delete");
@@ -99,10 +100,6 @@ public class NoteActivity extends AppCompatActivity {
                 });
                 builder.create().show();
                 break;
-            case R.id.close:
-                Log.d("Menu", "close");
-                finish();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -127,5 +124,12 @@ public class NoteActivity extends AppCompatActivity {
         sendIntent.putExtra(Intent.EXTRA_TEXT, note.export().toString());
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "Share your note"));
+    }
+
+    /***
+     * Sauvegarde la note
+     */
+    private void save(){
+
     }
 }
