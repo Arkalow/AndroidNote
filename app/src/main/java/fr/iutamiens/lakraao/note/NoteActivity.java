@@ -44,6 +44,7 @@ public class NoteActivity extends AppCompatActivity {
         TextView content = findViewById(R.id.content);
         title.setText(note.getTitle());
         content.setText(note.getContent());
+        setTitle(note.getTitle());
     }
     /***
      * Création du menu
