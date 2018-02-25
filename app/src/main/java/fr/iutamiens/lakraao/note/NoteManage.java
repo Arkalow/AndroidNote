@@ -4,7 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /***
@@ -24,7 +27,7 @@ public class NoteManage {
         Cursor cursor;
         try{
             database = databaseOpenHelper.getReadableDatabase();
-            cursor = database.rawQuery("SELECT * FROM notes ORDER BY id DESC", null);
+            cursor = database.rawQuery("SELECT * FROM notes ORDER BY modified DESC", null);
         }catch(Exception e){
             Log.e("Database", "Error selectAll note");
             Log.e("Database", e.getMessage());
@@ -99,6 +102,7 @@ public class NoteManage {
             ContentValues values = new ContentValues();
             values.put("title", note.getTitle());
             values.put("content", note.getContent());
+            values.put("modified", now());
             database.insert("notes", null, values);
             Log.d("Database", "Ajout d'une note dans la base de donnée");
         }catch(Exception e){
@@ -131,6 +135,7 @@ public class NoteManage {
             contentValues.put("id", note.getId());
             contentValues.put("title", note.getTitle());
             contentValues.put("content",note.getContent());
+            contentValues.put("modified", now());
             database.update("notes", contentValues,"id = ?", new String[]{ note.getId()+"" });
             Log.d("Database", "Update : " + note.toString());
         }catch(Exception e){
@@ -138,5 +143,13 @@ public class NoteManage {
             Log.e("Database", e.getMessage());
         }
         return note;
+    }
+
+    /***
+     * Retourne la date en seconde
+     * @return Timesamp
+     */
+    private static String now(){
+        return new SimpleDateFormat("yyyyMMddHHmmssSS").format(new Date());
     }
 }
