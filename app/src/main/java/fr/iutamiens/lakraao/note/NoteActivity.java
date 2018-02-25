@@ -28,7 +28,7 @@ public class NoteActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         int noteId = b.getInt("NoteId");
         try{
-            note = NoteManage.select(noteId, DatabaseOpenHelper.getSelf(this));
+            note = NoteManage.selectById(noteId, DatabaseOpenHelper.getSelf(this));
         }catch (Exception e){
             Log.e("Intent", "La note n'existe pas !");
             Intent intent = new Intent(this, MainActivity.class);

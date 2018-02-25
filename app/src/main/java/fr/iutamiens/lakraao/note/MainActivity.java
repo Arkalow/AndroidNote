@@ -40,16 +40,16 @@ public class MainActivity extends AppCompatActivity {
         nameAdapter = ((NameAdapter) recyclerView.getAdapter());
 
         openHelper = DatabaseOpenHelper.getSelf(this);// Base de donnée
-        
+
     }
 
     /***
      * Ajout d'une note à la liste
      * @param note note à ajouter
      */
-    private void addNote(Note note) {
+    private String addNote(Note note) {
         nameAdapter.add(note);//Ajout à la liste
-        NoteManage.add(note, openHelper);//Ajout à la BD
+        return NoteManage.add(note, openHelper);//Ajout à la BD
     }
 
     /***
@@ -112,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
                     /***
                      * Ajout de la note
                      */
-                    addNote(new Note(
+                    Note note = NoteManage.selectByModified(addNote(new Note(
                             inputTitle.getText().toString(),
-                            ""
-                            //"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    ));
+                            "")
+                    ), openHelper);
+                    selectNote(note);
                     nameAdapter.update();
                 }
             });

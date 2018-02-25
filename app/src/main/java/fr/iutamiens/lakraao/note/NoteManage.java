@@ -59,7 +59,7 @@ public class NoteManage {
      * @param databaseOpenHelper base de donnée
      * @return retourne la note récupérer dans la base de donnée portant l'id passé en paramètre
      */
-    public static Note select(int id, DatabaseOpenHelper databaseOpenHelper){
+    public static Note selectById(int id, DatabaseOpenHelper databaseOpenHelper){
         SQLiteDatabase database;
         Cursor cursor;
         try{
@@ -91,25 +91,63 @@ public class NoteManage {
     }
 
     /***
+     * Récupère une seule note de la base de donnée
+     * @param modified temps du champs modified de la note
+     * @param databaseOpenHelper base de donnée
+     * @return retourne la note récupérer dans la base de donnée portant l'id passé en paramètre
+     */
+    public static Note selectByModified(String modified, DatabaseOpenHelper databaseOpenHelper){
+        SQLiteDatabase database;
+        Cursor cursor;
+        try{
+            database = databaseOpenHelper.getReadableDatabase();
+            String sql = "SELECT * FROM notes WHERE modified = " + modified;
+            cursor = database.rawQuery(sql, null);
+        }catch(Exception e){
+            Log.e("Database", "Error select note");
+            Log.e("Database", e.getMessage());
+            return null;
+        }
+
+        /***
+         * Lecture des données récupérée
+         */
+        int idIndex = cursor.getColumnIndex("id");
+        int titleIndex = cursor.getColumnIndex("title");
+        int contentIndex = cursor.getColumnIndex("content");
+        cursor.moveToNext();
+        Note note = new Note(
+                cursor.getInt(idIndex),
+                cursor.getString(titleIndex),
+                cursor.getString(contentIndex)
+        );
+
+        cursor.close();
+        Log.d("Database", "select : " + note.toString());
+        return note;
+    }
+
+    /***
      * Ajoute une note dans la database
      * @param note note à ajouter
      * @param databaseOpenHelper base de donnée
      * @return return note
      */
-    public static Note add(Note note, DatabaseOpenHelper databaseOpenHelper){
+    public static String add(Note note, DatabaseOpenHelper databaseOpenHelper){
+        String now = now();
         try{
             SQLiteDatabase database = databaseOpenHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put("title", note.getTitle());
             values.put("content", note.getContent());
-            values.put("modified", now());
+            values.put("modified", now);
             database.insert("notes", null, values);
             Log.d("Database", "Ajout d'une note dans la base de donnée");
         }catch(Exception e){
             Log.e("Database", "Error add note");
             Log.e("Database", e.getMessage());
         }
-        return note;
+        return now;
     }
 
     /***
