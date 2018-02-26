@@ -3,7 +3,6 @@ package fr.iutamiens.lakraao.note;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +19,6 @@ public class NoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-
 
         /***
          * Récupération de la note
@@ -78,11 +76,11 @@ public class NoteActivity extends AppCompatActivity {
                  * AlertDialog
                  */
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Voulez-vous vraiment supprimer la note ?");
+                builder.setTitle(R.string.dialog_text_delete);
                 /**
                  * Bouton Valider
                  */
-                builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
+                builder.setPositiveButton(R.string.dialog_valider, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         Log.d("Dialog", "Valider");
@@ -93,7 +91,7 @@ public class NoteActivity extends AppCompatActivity {
                 /**
                  * Bouton Annuler
                  */
-                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
+                builder.setNegativeButton(R.string.dialog_annuler, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         Log.d("Dialog", "Annuler");
@@ -139,17 +137,20 @@ public class NoteActivity extends AppCompatActivity {
         NoteManage.update(new Note(note.getId(), note.getTitle(), content.getText().toString()), DatabaseOpenHelper.getSelf(this));
     }
 
+    /***
+     * Ferme la note
+     */
     private void close(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (!content.getText().toString().equals(note.getContent())){
             /***
              * AlertDialog
              */
-            builder.setTitle("Voulez-vous enregistrer les modifications ?");
+            builder.setTitle(R.string.dialog_text_save);
             /**
              * Bouton Valider
              */
-            builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
+            builder.setPositiveButton(R.string.dialog_valider, new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
                     Log.d("Dialog", "Valider");
@@ -161,7 +162,7 @@ public class NoteActivity extends AppCompatActivity {
             /**
              * Bouton Annuler
              */
-            builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
+            builder.setNegativeButton(R.string.dialog_annuler, new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
                     Log.d("Dialog", "Annuler");
@@ -173,6 +174,10 @@ public class NoteActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    /***
+     * S'execute quand l'utilisateur clique sur le bouton retour
+     */
     @Override
     public void onBackPressed(){
         close();

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Note</string>
+
+    <string name="dialog_valider">Valider</string>
+    <string name="dialog_annuler">Annuler</string>
+    <string name="dialog_text_delete">Voulez-vous vraiment supprimer la note ?</string>
+    <string name="dialog_text_save">Voulez-vous sauvegarder les modification</string>
+
+    <string name="intent_share">Partager votre note</string>
 </resources>

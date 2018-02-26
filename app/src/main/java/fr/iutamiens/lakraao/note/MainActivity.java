@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             /**
              * Bouton Valider
              */
-            builder.setPositiveButton("Valider", new DialogInterface.OnClickListener(){
+            builder.setPositiveButton(R.string.dialog_valider, new DialogInterface.OnClickListener(){
                 private EditText inputTitle;//Input de la fenêtre de dialog
 
                 @Override
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             /**
              * Bouton Annuler
              */
-            builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener(){
+            builder.setNegativeButton(R.string.dialog_annuler, new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {

@@ -23,8 +23,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     /***
      * Retourne l'instance unique de la classe DatabaseOpenHelper
-     * @param context
-     * @return
+     * @param context content de l'activity
+     * @return l'instance de la base de donnée
      */
     public static DatabaseOpenHelper getSelf(Context context){
         if(self == null){
