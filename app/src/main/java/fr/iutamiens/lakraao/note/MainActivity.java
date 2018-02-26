@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.share){
+        if(item.getItemId() == R.id.Add){
 
             /***
              * AlertDialog
