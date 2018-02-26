@@ -21,14 +21,14 @@
                 android:textSize="30sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title"/>
+                android:hint="@string/note_title"/>
 
             <EditText
                 style="@style/StyleEditText"
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Content"/>
+                android:hint="@string/note_content"/>
         </LinearLayout>
     </ScrollView>
 

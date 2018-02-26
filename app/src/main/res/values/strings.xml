@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Note</string>
 
+    <string name="note_title">Titre</string>
+    <string name="note_content">Rentrez votre contenu</string>
+
     <string name="dialog_valider">Valider</string>
     <string name="dialog_annuler">Annuler</string>
     <string name="dialog_text_delete">Voulez-vous vraiment supprimer la note ?</string>
